@@ -1,58 +1,111 @@
-import React from "react";
-import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
+import { useState, useMemo } from "react";
+import * as THREE from "three";
 import House3D from "../components/House3D";
+import { Search, MapPin, User, ShoppingBag } from "lucide-react";
 
 export default function ItemLocationPage() {
+  const [search, setSearch] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  // Posição fixa do "celular"
+  const phonePosition = new THREE.Vector3(0, 1.6, 4);
+
+  // Itens que existem no mapa
+  const items = [
+    { id: 1, name: "Chave", x: 2, y: 0.2, z: -1, description: "Chave do carro", lastLocation: "Sala" },
+    { id: 2, name: "Carteira", x: -1, y: 0.2, z: 3, description: "Carteira preta de couro", lastLocation: "Cozinha" },
+    { id: 3, name: "Óculos", x: 4, y: 0.2, z: 1, description: "Óculos de leitura", lastLocation: "Quarto" },
+    { id: 4, name: "Fone Bluetooth", x: -3, y: 0.2, z: -2, description: "Fone azul", lastLocation: "Escritório" },
+    { id: 5, name: "Relógio", x: 0, y: 0.2, z: -4, description: "Relógio prata", lastLocation: "Banheiro" },
+  ];
+
+  // Filtrar itens pela busca
+  const filteredItems = useMemo(() => {
+    return items.map((item) => {
+      // calcular distância no próprio JSX
+      const distance = phonePosition.distanceTo(
+        new THREE.Vector3(item.x, item.y, item.z)
+      );
+      return { ...item, distance };
+    }).filter((i) =>
+      i.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
   return (
-    <div className="w-full flex flex-col items-center bg-gray-100 min-h-screen">
-      
-      {/* Header */}
-      <header className="w-full bg-blue-800 border-b py-6 text-center">
-        <h1 className="text-3xl text-white font-semibold">
-          Localização do Item
-        </h1>
+    <div className="flex flex-col h-screen bg-gray-100">
+
+      {/* TÍTULO */}
+      <header className="w-full bg-blue-800 text-center py-5 shadow-md border-b">
+        <h1 className="text-3xl font-bold text-white">Localizar Itens</h1>
       </header>
 
-      {/* Content */}
-      <div className="w-full max-w-6xl flex mt-10 gap-8 px-6">
+      {/* SEARCH */}
+      <div className="p-4 flex items-center gap-2 bg-white shadow">
+        <Search size={22} />
+        <input
+          type="text"
+          placeholder="Buscar item..."
+          value={search}
+          onChange={(e) => {
+            setSelectedItem(null);
+            setSearch(e.target.value);
+          }}
+          className="flex-1 p-2 border rounded-md"
+        />
+      </div>
 
-        {/* Left — 3D Map */}
-        <div className="w-1/2 bg-white p-4 rounded-xl shadow">
-          <House3D />
+      <div className="flex flex-1 overflow-hidden">
+
+        {/* MAPA 3D */}
+        <div className="flex-1">
+          <House3D
+            items={filteredItems}
+            onSelectItem={(item) => {
+              // item vem SEM distance — vamos buscar o correto
+              const match = filteredItems.find((i) => i.id === item.id);
+              setSelectedItem(match);
+            }}
+          />
         </div>
 
-        {/* Right — Item Info */}
-        <div className="w-1/2 bg-white p-6 rounded-xl shadow flex flex-col gap-6">
-          <h2 className="text-2xl font-bold">Nome do Item</h2>
+        {/* SIDEBAR */}
+        <div className="w-80 bg-white border-l p-4 overflow-auto shadow-inner">
+          {!selectedItem ? (
+            <p className="text-gray-500">Clique em um item no mapa…</p>
+          ) : (
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold">{selectedItem.name}</h2>
 
-          <div className="text-lg">
-            <p><strong>Descrição:</strong> Uma descrição simples do item.</p>
-            <p><strong>Última Localização:</strong> Cozinha, perto da mesa.</p>
-            <p><strong>Data da Perda:</strong> 18/11/2025 às 15:43</p>
-          </div>
+              <p>
+                <strong>Descrição:</strong> {selectedItem.description}
+              </p>
 
-          <div className="flex gap-4 mt-4">
-            <button className="bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center gap-2">
-              <Pencil size={20} />
-              Editar
-            </button>
+              <p>
+                <strong>Última Localização:</strong> {selectedItem.lastLocation}
+              </p>
 
-            <button className="bg-red-600 text-white px-5 py-3 rounded-lg flex items-center gap-2">
-              <Trash2 size={20} />
-              Remover
-            </button>
-          </div>
+              <p>
+                <strong>Data da Perda:</strong>{" "}
+                {new Date().toLocaleDateString()} às{" "}
+                {new Date().toLocaleTimeString()}
+              </p>
+
+              <p>
+                <strong>Distância do Celular:</strong>{" "}
+                {selectedItem.distance.toFixed(2)} metros
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="w-full flex justify-start items-center mt-10 px-6 pb-10">
-        <button className="flex items-center gap-2 text-blue-900 text-lg">
-          <ArrowLeft size={22} />
-          Voltar
-        </button>
+      {/* FOOTER */}
+      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
+        <ShoppingBag size={32} />
+        <MapPin size={32} />
+        <User size={32} />
       </footer>
-
     </div>
   );
 }

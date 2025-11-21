@@ -1,77 +1,70 @@
-// src/components/House3D.jsx
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Html } from "@react-three/drei";
 
-// Util para criar paredes automaticamente
-function Wall({ x, y, z, w, h, rot = 0 }) {
+export default function House3D({ items, onSelectItem }) {
   return (
-    <mesh position={[x, y, z]} rotation={[0, rot, 0]}>
-      <boxGeometry args={[w, h, 0.15]} />
-      <meshStandardMaterial color="#ffffff" />
-    </mesh>
-  );
-}
+    <Canvas camera={{ position: [5, 6, 10], fov: 45 }}>
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[5, 10, 5]} intensity={1} />
 
-function Floor() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[10, 6]} />
-      <meshStandardMaterial color="#d4d4d4" />
-    </mesh>
-  );
-}
+      {/* Piso */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[20, 20]} />
+        <meshStandardMaterial color="#e3e3e3" />
+      </mesh>
 
-function Marker() {
-  return (
-    <mesh position={[0, 0.2, 0]}>
-      <sphereGeometry args={[0.15, 32, 32]} />
-      <meshStandardMaterial color="red" />
-    </mesh>
-  );
-}
+      {/* Paredes */}
+      <mesh position={[0, 1.5, -5]}>
+        <boxGeometry args={[20, 3, 0.3]} />
+        <meshStandardMaterial color="#cccccc" />
+      </mesh>
 
-function HouseStructure() {
-  const H = 2.6; // altura das paredes
+      <mesh position={[0, 1.5, 5]}>
+        <boxGeometry args={[20, 3, 0.3]} />
+        <meshStandardMaterial color="#cccccc" />
+      </mesh>
 
-  return (
-    <>
-      {/* PISO */}
-      <Floor />
+      <mesh position={[10, 1.5, 0]}>
+        <boxGeometry args={[0.3, 3, 20]} />
+        <meshStandardMaterial color="#cccccc" />
+      </mesh>
 
-      {/* --- PAREDES EXTERNAS --- */}
-      <Wall x={0} y={H / 2} z={-3} w={10} h={H} />            {/* parede fundo */}
-      <Wall x={0} y={H / 2} z={3} w={10} h={H} />             {/* frente */}
-      <Wall x={-5} y={H / 2} z={0} w={6} h={H} rot={Math.PI/2} /> {/* esquerda */}
-      <Wall x={5} y={H / 2} z={0} w={6} h={H} rot={Math.PI/2} />  {/* direita */}
+      <mesh position={[-10, 1.5, 0]}>
+        <boxGeometry args={[0.3, 3, 20]} />
+        <meshStandardMaterial color="#cccccc" />
+      </mesh>
 
-      {/* --- PAREDES INTERNAS --- */}
+      {/* Itens 3D */}
+      {items.map((item) => (
+        <group
+          key={item.id}
+          position={[item.x, item.y, item.z]}
+          onClick={() => onSelectItem(item)}
+        >
+          <mesh>
+            <sphereGeometry args={[0.25, 32, 32]} />
+            <meshStandardMaterial color="orange" />
+          </mesh>
 
-      {/* Divisão sala/cozinha (vertical esquerda) */}
-      <Wall x={-1} y={H/2} z={0} w={6} h={H} rot={Math.PI/2} />
+          {/* Label */}
+          <Html position={[0, 0.6, 0]} center>
+            <div
+              style={{
+                background: "white",
+                padding: "4px 8px",
+                borderRadius: "6px",
+                fontSize: "12px",
+                fontWeight: "600",
+                border: "1px solid #ccc",
+              }}
+            >
+              {item.name}
+            </div>
+          </Html>
+        </group>
+      ))}
 
-      {/* Divisão da cozinha/quarto (vertical direita) */}
-      <Wall x={2} y={H/2} z={0} w={6} h={H} rot={Math.PI/2} />
-
-      {/* Divisão banheiro/quarto (horizontal topo) */}
-      <Wall x={3.5} y={H/2} z={-1} w={3} h={H} />
-
-      {/* Portas abertas (simplesmente não renderizar paredes no trecho da porta) */}
-    </>
-  );
-}
-
-export default function House3D() {
-  return (
-    <div className="w-full h-[500px]">
-      <Canvas camera={{ position: [8, 8, 8], fov: 50 }}>
-        <ambientLight intensity={1.2} />
-        <directionalLight position={[4, 10, 6]} intensity={1.2} />
-
-        <HouseStructure />
-        <Marker />
-
-        <OrbitControls />
-      </Canvas>
-    </div>
+      <OrbitControls />
+    </Canvas>
   );
 }
