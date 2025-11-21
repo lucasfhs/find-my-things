@@ -37,7 +37,7 @@ export default function ConfiguracoesAjuda() {
     <div className="w-full min-h-screen flex flex-col items-center bg-gray-50">
 
       {/* Header */}
-      <header className="w-full border-b py-6 text-center">
+      <header className="w-full bg-blue-800 text-white border-b py-6 text-center">
         <h1 className="text-3xl font-bold">Configurações e Ajuda</h1>
       </header>
 
@@ -47,7 +47,7 @@ export default function ConfiguracoesAjuda() {
         {/* Botão Editar Dados */}
         <button
           onClick={() => setShowEditModal(true)}
-          className="w-full bg-gray-800 text-white py-3 rounded-md text-lg"
+          className="w-full bg-blue-800 hover:bg-blue-700 text-white py-3 rounded-md text-lg"
         >
           Editar dados cadastrais
         </button>
@@ -62,7 +62,7 @@ export default function ConfiguracoesAjuda() {
           {faqList.map((faq, i) => (
             <div
               key={i}
-              className="w-full bg-white border rounded-md p-4 flex flex-col gap-2"
+              className="w-full bg-white hover:bg-gray-50 border rounded-md p-4 flex flex-col gap-2"
             >
               <button
                 className="w-full text-left text-gray-900 font-medium"
@@ -84,7 +84,7 @@ export default function ConfiguracoesAjuda() {
         {/* Botão Ajuda */}
         <button
           onClick={() => setShowSupportModal(true)}
-          className="w-full bg-gray-800 text-white py-3 rounded-md text-lg mt-4"
+          className="w-full bg-blue-800 hover:bg-blue-700 text-white py-3 rounded-md text-lg mt-4"
         >
           Preciso de suporte humano
         </button>
