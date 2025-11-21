@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import * as THREE from "three";
 import House3D from "../components/House3D";
 import { Search, MapPin, User, ShoppingBag, X } from "lucide-react";
-
+import { Link } from "react-router-dom";
 export default function ItemLocationPage() {
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -94,11 +94,17 @@ export default function ItemLocationPage() {
 
       </div>
 
-      {/* FOOTER */}
-      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-3 flex justify-around text-white md:py-4">
-        <ShoppingBag size={28} />
-        <MapPin size={28} />
-        <User size={28} />
+      {/* Bottom Navigation */}
+      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
+        <Link to="/minhas-coisas">
+          <ShoppingBag className="hover:text-black" size={32} />
+        </Link>
+        <Link to="/localizacao">
+          <MapPin  className="hover:text-black" size={32} />
+        </Link>
+        <Link to="/configuracao-ajuda">
+          <User className="hover:text-black" size={32} />
+        </Link>
       </footer>
     </div>
   );
