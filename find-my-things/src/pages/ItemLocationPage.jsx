@@ -97,13 +97,24 @@ export default function ItemLocationPage() {
       {/* Bottom Navigation */}
       <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
         <Link to="/minhas-coisas">
-          <ShoppingBag className="hover:text-black" size={32} />
+          <div className="flex flex-col items-center justify-center gap-1">
+            <ShoppingBag className="hover:text-gray-900 transition-all duration-150" size={32} />
+            <p>Minhas Coisas</p>
+          </div>
         </Link>
+
         <Link to="/localizacao">
-          <MapPin  className="hover:text-black" size={32} />
+          <div className="flex flex-col items-center justify-center gap-1">
+            <MapPin className="hover:text-gray-900 transition-all duration-150" size={32} />
+            <p>Encontrar meus Itens</p>
+          </div>
         </Link>
+
         <Link to="/configuracao-ajuda">
-          <User className="hover:text-black" size={32} />
+          <div className="flex flex-col items-center justify-center gap-1">
+            <User className="hover:text-gray-900 transition-all duration-150" size={32} />
+            <p>Ajuda</p>
+          </div>
         </Link>
       </footer>
     </div>
