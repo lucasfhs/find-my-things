@@ -100,15 +100,29 @@ export default function MyThings() {
             className="w-full border rounded-xl p-6 flex items-center gap-6"
           >
             {/* Image Placeholder */}
-            <div className="w-28 h-20 bg-gray-300 flex items-center justify-center rounded-md">
+            <div className="hidden w-28 h-20 bg-gray-300 sm:flex items-center justify-center rounded-md">
               <span className="text-gray-600">Imagem</span>
             </div>
 
-            {/* Item Info */}
-            <div className="flex-1 text-center">
-              <p className="font-semibold">{item.name}</p>
-              <p>Descrição do Item: {item.description}</p>
-              <p>Última Localização do Item: {item.location}</p>
+            <div className="flex-1">
+              <table className="w-full text-left border-collapse">
+                <tbody className="text-gray-700">
+                  <tr className="border-b">
+                    <th className="py-1 pr-4 font-semibold text-gray-900">Nome</th>
+                    <td className="py-1">{item.name}</td>
+                  </tr>
+
+                  <tr className="border-b">
+                    <th className="py-1 pr-4 font-semibold text-gray-900">Descrição</th>
+                    <td className="py-1">{item.description}</td>
+                  </tr>
+
+                  <tr>
+                    <th className="py-1 pr-4 font-semibold text-gray-900">Localização</th>
+                    <td className="py-1">{item.location}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             {/* Actions */}
