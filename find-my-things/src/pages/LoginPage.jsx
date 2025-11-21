@@ -9,12 +9,12 @@ export default function LoginPage() {
   const [emailReset, setEmailReset] = React.useState("");
 
   return (
-    <div className="w-full h-screen flex bg-gray-200">
+    <div className="w-full h-auto md:h-screen flex flex-col md:flex-row bg-gray-200">
 
       {/* Modal Esqueci minha senha */}
       {showForgot && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-xl shadow-lg w-96 flex flex-col gap-4">
+          <div className="bg-white p-8 rounded-xl shadow-lg w-11/12 sm:w-96 flex flex-col gap-4">
 
             <h2 className="text-2xl font-bold text-center">Redefinir Senha</h2>
             <p className="text-gray-600 text-sm text-center">
@@ -54,24 +54,13 @@ export default function LoginPage() {
         </div>
       )}
 
-      {/* Left side */}
-      <div className="w-1/2 h-full bg-white flex flex-col justify-between p-12">
-        <div className="mt-12">
-          <h1 className="text-5xl font-bold mb-2">Perdeu as suas coisas?</h1>
-          <p className="text-3xl text-gray-600">A gente te ajuda a achar</p>
-        </div>
+      {/* Right side (Login) - aparece primeiro no mobile */}
+      <div className="w-full md:w-1/2 h-auto md:h-full bg-gray-50 flex flex-col items-center justify-center border-b md:border-b-0 md:border-l border-gray-300 p-8">
 
-        <div className="w-full h-full rounded-xl flex items-center justify-center">
-          <LottieContainer animationData={animation} width={900} heigth={900} />
-        </div>
-      </div>
+        <h1 className="text-3xl md:text-4xl mb-12 md:mb-24">Encontre Já!</h1>
+        <h2 className="text-2xl md:text-4xl font-semibold mb-8 md:mb-12">LOGIN</h2>
 
-      {/* Right side */}
-      <div className="w-1/2 h-full bg-gray-50 flex flex-col items-center justify-center border-l border-gray-300">
-        <h1 className="text-4xl mb-24">Encontre Ja!</h1>
-        <h2 className="text-4xl font-semibold mb-12">LOGIN</h2>
-
-        <form className="w-2/3 flex flex-col gap-8">
+        <form className="w-full max-w-md flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <Label.Root className="text-lg font-medium">EMAIL:</Label.Root>
             <input
@@ -88,7 +77,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Esqueci minha senha */}
           <button
             type="button"
             onClick={() => setShowForgot(true)}
@@ -97,7 +85,6 @@ export default function LoginPage() {
             Esqueci minha senha
           </button>
 
-          {/* Link para Login */}
           <p className="text-center text-gray-700 mt-4">
             Não possui conta?{" "}
             <Link to="/registrar" className="text-sky-900 underline">
@@ -112,6 +99,19 @@ export default function LoginPage() {
             <button type="submit">Entrar</button>
           </Link>
         </form>
+      </div>
+
+      {/* Left side (Texto + animação) - vai pra baixo no mobile */}
+      <div className="w-full md:w-1/2 h-auto md:h-full bg-white flex flex-col justify-between p-8 md:p-12">
+
+        <div className="mt-4 md:mt-12 text-center md:text-left">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">Perdeu as suas coisas?</h1>
+          <p className="text-xl md:text-3xl text-gray-600">A gente te ajuda a achar</p>
+        </div>
+
+        <div className="w-full flex items-center justify-center py-8">
+          <LottieContainer animationData={animation} width={350} heigth={350} />
+        </div>
       </div>
     </div>
   );
