@@ -14,12 +14,17 @@ export default function House3D({ items, onSelectItem }) {
       </mesh>
 
       {/* Paredes */}
-      <mesh position={[0, 1.5, -5]}>
+      <mesh position={[0, 1.5, -10]}>
         <boxGeometry args={[20, 3, 0.3]} />
         <meshStandardMaterial color="#cccccc" />
       </mesh>
 
-      <mesh position={[0, 1.5, 5]}>
+       <mesh position={[1.3, 1.5, 5]}>
+        <boxGeometry args={[17, 3, 0.3]} />
+        <meshStandardMaterial color="#cccccc" />
+      </mesh>
+
+      <mesh position={[0, 1.5, 10]}>
         <boxGeometry args={[20, 3, 0.3]} />
         <meshStandardMaterial color="#cccccc" />
       </mesh>
