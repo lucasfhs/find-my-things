@@ -1,7 +1,90 @@
-import React from "react";
-import { Pencil, Trash2, ArrowLeft, ArrowRight, ShoppingBag, MapPin, User } from "lucide-react";
+import React, { useState } from "react";
+import {
+  Pencil,
+  Trash2,
+  ArrowLeft,
+  ArrowRight,
+  ShoppingBag,
+  MapPin,
+  User,
+} from "lucide-react";
 
 export default function MyThings() {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      name: "Carteira",
+      description: "Carteira preta de couro",
+      location: "Sala",
+    },
+    {
+      id: 2,
+      name: "Chave",
+      description: "Chave do carro",
+      location: "Cozinha",
+    },
+    {
+      id: 3,
+      name: "Fone de ouvido",
+      description: "Fone Bluetooth",
+      location: "Quarto",
+    },
+  ]);
+
+  // Modal state
+  const [showModal, setShowModal] = useState(false);
+
+  // Form state
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    location: "",
+  });
+
+  const [editingId, setEditingId] = useState(null);
+
+  // Open modal for NEW item
+  function openNewModal() {
+    setEditingId(null);
+    setForm({ name: "", description: "", location: "" });
+    setShowModal(true);
+  }
+
+  // Open modal for EDIT
+  function openEditModal(item) {
+    setEditingId(item.id);
+    setForm({
+      name: item.name,
+      description: item.description,
+      location: item.location,
+    });
+    setShowModal(true);
+  }
+
+  // Save (new or edit)
+  function saveItem() {
+    if (editingId === null) {
+      const next = {
+        id: items.length + 1,
+        ...form,
+      };
+      setItems([...items, next]);
+    } else {
+      const updated = items.map((item) =>
+        item.id === editingId ? { ...item, ...form } : item
+      );
+      setItems(updated);
+    }
+
+    setShowModal(false);
+  }
+
+  // Delete item
+  function deleteItem(id) {
+    const filtered = items.filter((item) => item.id !== id);
+    setItems(filtered);
+  }
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center bg-gray-50">
       {/* Header */}
@@ -11,10 +94,9 @@ export default function MyThings() {
 
       {/* Items List */}
       <div className="w-full max-w-4xl mt-10 px-4 flex flex-col gap-10">
-        
-        {[1, 2, 3].map((i) => (
-          <div 
-            key={i} 
+        {items.map((item) => (
+          <div
+            key={item.id}
             className="w-full border rounded-xl p-6 flex items-center gap-6"
           >
             {/* Image Placeholder */}
@@ -24,17 +106,18 @@ export default function MyThings() {
 
             {/* Item Info */}
             <div className="flex-1 text-center">
-              <p className="font-semibold">Item {i}:</p>
-              <p>Descrição do Item: Um item de exemplo.</p>
-              <p>Última Localização do Item: Cozinha.</p>
+              <p className="font-semibold">{item.name}</p>
+              <p>Descrição do Item: {item.description}</p>
+              <p>Última Localização do Item: {item.location}</p>
             </div>
 
             {/* Actions */}
             <div className="flex items-center gap-6">
-              <button className="p-2">
+              <button className="p-2" onClick={() => openEditModal(item)}>
                 <Pencil size={22} />
               </button>
-              <button className="p-2">
+
+              <button className="p-2" onClick={() => deleteItem(item.id)}>
                 <Trash2 size={22} />
               </button>
             </div>
@@ -49,7 +132,10 @@ export default function MyThings() {
           <span>Voltar</span>
         </div>
 
-        <button className="bg-blue-900 text-white py-3 px-6 rounded-md text-lg">
+        <button
+          onClick={openNewModal}
+          className="bg-blue-900 text-white py-3 px-6 rounded-md text-lg"
+        >
           Cadastrar um novo item
         </button>
 
@@ -59,7 +145,9 @@ export default function MyThings() {
         </div>
       </div>
 
-      <p className="mt-4 text-gray-700 text-sm">1 de 20 itens encontrados.</p>
+      <p className="mt-4 text-gray-700 text-sm">
+        {items.length} itens encontrados.
+      </p>
 
       {/* Bottom Navigation */}
       <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
@@ -67,6 +155,57 @@ export default function MyThings() {
         <MapPin size={32} />
         <User size={32} />
       </footer>
+
+      {/* MODAL */}
+      {showModal && (
+        <div className="fixed inset-0 bg-opacity-80 flex justify-center items-center">
+          <div className="bg-white w-96 p-6 rounded-xl shadow-xl flex flex-col gap-4">
+
+            <h2 className="text-2xl font-semibold text-center">
+              {editingId === null ? "Cadastrar Item" : "Editar Item"}
+            </h2>
+
+            <input
+              className="border p-2 rounded"
+              placeholder="Nome do item"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+
+            <input
+              className="border p-2 rounded"
+              placeholder="Descrição"
+              value={form.description}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
+            />
+
+            <input
+              className="border p-2 rounded"
+              placeholder="Última localização"
+              value={form.location}
+              onChange={(e) => setForm({ ...form, location: e.target.value })}
+            />
+
+            <div className="flex justify-end gap-4 mt-4">
+              <button
+                className="bg-gray-300 px-4 py-2 rounded"
+                onClick={() => setShowModal(false)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                className="bg-blue-700 text-white px-4 py-2 rounded"
+                onClick={saveItem}
+              >
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
