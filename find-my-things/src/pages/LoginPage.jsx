@@ -16,7 +16,7 @@ export default function LoginPage() {
         </div>
 
         <div className="w-full h-full rounded-xl flex items-center justify-center">
-          <LottieContainer animationData={animation} width={900} heigth={900}/>
+          <LottieContainer animationData={animation} width={900} heigth={900} />
         </div>
       </div>
 
@@ -41,6 +41,14 @@ export default function LoginPage() {
               className="border border-gray-400 rounded-md p-3"
             />
           </div>
+
+          {/* Link para Login */}
+          <p className="text-center text-gray-700 mt-4">
+            Não possui conta?{" "}
+            <Link to="/registrar" className="text-sky-900 underline">
+              Criar conta
+            </Link>
+          </p>
           <Link className="bg-sky-900 text-center text-white p-4 rounded-md text-lg mt-4" to="/minhas-coisas">
             <button type="submit">Entrar</button>
           </Link>
