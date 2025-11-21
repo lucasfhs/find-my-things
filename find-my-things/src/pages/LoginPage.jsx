@@ -3,11 +3,57 @@ import * as Label from "@radix-ui/react-label";
 import { Link } from "react-router-dom";
 import LottieContainer from "../components/LottieContainer";
 import animation from "../assets/animation.json";
-// Removed invalid Radix button import
 
 export default function LoginPage() {
+  const [showForgot, setShowForgot] = React.useState(false);
+  const [emailReset, setEmailReset] = React.useState("");
+
   return (
     <div className="w-full h-screen flex bg-gray-200">
+
+      {/* Modal Esqueci minha senha */}
+      {showForgot && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-xl shadow-lg w-96 flex flex-col gap-4">
+
+            <h2 className="text-2xl font-bold text-center">Redefinir Senha</h2>
+            <p className="text-gray-600 text-sm text-center">
+              Digite seu email para enviarmos um link de redefinição.
+            </p>
+
+            <input
+              type="email"
+              value={emailReset}
+              onChange={(e) => setEmailReset(e.target.value)}
+              placeholder="Seu email"
+              className="border border-gray-400 rounded-md p-3"
+            />
+
+            <button
+              className="bg-sky-900 text-white p-3 rounded-md"
+              onClick={() => {
+                if (!emailReset) {
+                  alert("Digite um email válido!");
+                  return;
+                }
+                alert("Enviamos um link para redefinir sua senha!");
+                setShowForgot(false);
+                setEmailReset("");
+              }}
+            >
+              Enviar link
+            </button>
+
+            <button
+              className="text-gray-600 underline text-sm"
+              onClick={() => setShowForgot(false)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Left side */}
       <div className="w-1/2 h-full bg-white flex flex-col justify-between p-12">
         <div className="mt-12">
@@ -42,6 +88,15 @@ export default function LoginPage() {
             />
           </div>
 
+          {/* Esqueci minha senha */}
+          <button
+            type="button"
+            onClick={() => setShowForgot(true)}
+            className="text-sm text-sky-900 underline text-left"
+          >
+            Esqueci minha senha
+          </button>
+
           {/* Link para Login */}
           <p className="text-center text-gray-700 mt-4">
             Não possui conta?{" "}
@@ -49,7 +104,11 @@ export default function LoginPage() {
               Criar conta
             </Link>
           </p>
-          <Link className="bg-sky-900 text-center text-white p-4 rounded-md text-lg mt-4" to="/minhas-coisas">
+
+          <Link
+            className="bg-sky-900 text-center text-white p-4 rounded-md text-lg mt-4"
+            to="/minhas-coisas"
+          >
             <button type="submit">Entrar</button>
           </Link>
         </form>
