@@ -14,7 +14,7 @@ export default function MyThings() {
     {
       id: 1,
       name: "Carteira",
-      description: "Carteira preta de couro",
+      description: "Carteira preta",
       location: "Sala",
     },
     {
