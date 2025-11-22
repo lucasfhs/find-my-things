@@ -165,22 +165,22 @@ export default function MyThings() {
       </p>
 
       {/* Bottom Navigation */}
-      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
-        <Link to="/minhas-coisas">
+      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex text-white">
+        <Link to="/minhas-coisas" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <ShoppingBag className="hover:text-gray-900 transition-all duration-150" size={32} />
             <p>Minhas Coisas</p>
           </div>
         </Link>
 
-        <Link to="/localizacao">
+        <Link to="/localizacao" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <MapPin className="hover:text-gray-900 transition-all duration-150" size={32} />
-            <p>Encontrar meus Itens</p>
+            <p className="text-center">Encontrar meus itens</p>
           </div>
         </Link>
 
-        <Link to="/configuracao-ajuda">
+        <Link to="/configuracao-ajuda" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <User className="hover:text-gray-900 transition-all duration-150" size={32} />
             <p>Ajuda</p>
