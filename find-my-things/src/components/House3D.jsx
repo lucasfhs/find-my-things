@@ -3,7 +3,7 @@ import { OrbitControls, Html } from "@react-three/drei";
 
 export default function House3D({ items, onSelectItem }) {
   return (
-    <Canvas camera={{ position: [-17, 8.5, -14], fov: 60 }}>
+    <Canvas camera={{ position: [-18, 15.5, -10], fov: 60 }}>
       <ambientLight intensity={0.7} />
       <directionalLight position={[5, 10, 5]} intensity={1} />
 

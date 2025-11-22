@@ -141,7 +141,7 @@ export default function MyThings() {
       </div>
 
       {/* Pagination + Button */}
-      <div className="w-full max-w-4xl mt-8 flex justify-between items-center px-4">
+      <div className="w-full max-w-4xl mt-8 flex justify-between items-center px-4 gap-4">
         <div className="flex items-center gap-2">
           <ArrowLeft size={20} />
           <span>Voltar</span>
