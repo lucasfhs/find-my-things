@@ -10,11 +10,13 @@ export default function ItemLocationPage() {
   const phonePosition = new THREE.Vector3(0, 1.6, 4);
 
   const items = [
-    { id: 1, name: "Chave", x: 2, y: 0.2, z: -1, description: "Chave do carro", lastLocation: "Sala" },
-    { id: 2, name: "Carteira", x: -1, y: 0.2, z: 3, description: "Carteira preta", lastLocation: "Cozinha" },
-    { id: 3, name: "Óculos", x: 4, y: 0.2, z: 1, description: "Óculos de leitura", lastLocation: "Quarto" },
-    { id: 4, name: "Fone Bluetooth", x: -3, y: 0.2, z: -2, description: "Fone azul", lastLocation: "Escritório" },
-    { id: 5, name: "Relógio", x: 0, y: 0.2, z: -4, description: "Relógio prata", lastLocation: "Banheiro" },
+    { id: 1, name: "Chave", x: 6, y: 0.5, z: -9.5, description: "Chave do carro", lastLocation: "Garagem" },
+    { id: 2, name: "Carteira", x: -15, y: 0.9, z: .5, description: "Carteira preta", lastLocation: "Closet" },
+    { id: 3, name: "Óculos", x: 5.05, y: 0.85, z: 1.2, description: "Óculos de leitura", lastLocation: "Banheiro" },
+    { id: 4, name: "Fone Bluetooth", x: -0.4, y: 0.7, z: 7, description: "Fone azul", lastLocation: "Quarto" },
+    { id: 5, name: "Relógio", x: -2.5, y: 0.9, z: -2.9, description: "Relógio prata", lastLocation: "Cozinha" },
+    { id: 5, name: "Livro", x: -8, y: 0.9, z: -8.5, description: "Livro de Romance", lastLocation: "Quarto" },
+    { id: 6, name: "Chapéu", x: 12, y: 0.4, z: 8, description: "Chapéu de sol", lastLocation: "Sala de estar" }
   ];
 
   const filteredItems = useMemo(() => {
