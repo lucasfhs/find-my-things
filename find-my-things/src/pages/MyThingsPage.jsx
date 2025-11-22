@@ -9,6 +9,7 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import LocatorDetectMessage from "../components/LocatorDetectMessage";
 export default function MyThings() {
   const [items, setItems] = useState([
     {
@@ -188,6 +189,7 @@ export default function MyThings() {
       </footer>
 
       {/* MODAL */}
+      {/* MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-opacity-80 flex justify-center items-center">
           <div className="bg-white w-96 p-6 rounded-xl shadow-xl flex flex-col gap-4">
@@ -195,6 +197,11 @@ export default function MyThings() {
             <h2 className="text-2xl font-semibold text-center">
               {editingId === null ? "Cadastrar Item" : "Editar Item"}
             </h2>
+
+            {/* Localizador detect message */}
+            {editingId === null && (
+              <LocatorDetectMessage />
+            )}
 
             <input
               className="border p-2 rounded"
@@ -237,6 +244,7 @@ export default function MyThings() {
           </div>
         </div>
       )}
+
     </div>
   );
 }
