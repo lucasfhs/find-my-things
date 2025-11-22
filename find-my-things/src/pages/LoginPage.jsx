@@ -57,7 +57,18 @@ export default function LoginPage() {
       {/* Right side (Login) - aparece primeiro no mobile */}
       <div className="w-full md:w-1/2 h-auto md:h-full bg-gray-50 flex flex-col items-center justify-center border-b md:border-b-0 md:border-l border-gray-300 p-8">
 
-        <h1 className="text-3xl md:text-4xl mb-12 md:mb-24">Encontre Já!</h1>
+        <div className="flex items-center mb-12 md:mb-24">
+          <img
+            src="/favicon/favicon-96x96.png"
+            alt="Logo Encontre Já"
+            className="w-10 h-10 md:w-16 md:h-16 object-contain"
+          />
+
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-sky-900">
+            ncontre Já
+          </h1>
+        </div>
+
         <h2 className="text-2xl md:text-4xl font-semibold mb-8 md:mb-12">LOGIN</h2>
 
         <form className="w-full max-w-md flex flex-col gap-8">
