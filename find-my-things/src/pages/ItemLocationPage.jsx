@@ -10,11 +10,13 @@ export default function ItemLocationPage() {
   const phonePosition = new THREE.Vector3(0, 1.6, 4);
 
   const items = [
-    { id: 1, name: "Chave", x: 2, y: 0.2, z: -1, description: "Chave do carro", lastLocation: "Sala" },
-    { id: 2, name: "Carteira", x: -1, y: 0.2, z: 3, description: "Carteira preta", lastLocation: "Cozinha" },
-    { id: 3, name: "Óculos", x: 4, y: 0.2, z: 1, description: "Óculos de leitura", lastLocation: "Quarto" },
-    { id: 4, name: "Fone Bluetooth", x: -3, y: 0.2, z: -2, description: "Fone azul", lastLocation: "Escritório" },
-    { id: 5, name: "Relógio", x: 0, y: 0.2, z: -4, description: "Relógio prata", lastLocation: "Banheiro" },
+    { id: 1, name: "Chave", x: 6, y: 0.5, z: -9.5, description: "Chave do carro", lastLocation: "Garagem" },
+    { id: 2, name: "Carteira", x: -15, y: 0.9, z: .5, description: "Carteira preta", lastLocation: "Closet" },
+    { id: 3, name: "Óculos", x: 5.05, y: 0.85, z: 1.2, description: "Óculos de leitura", lastLocation: "Banheiro" },
+    { id: 4, name: "Fone Bluetooth", x: -0.4, y: 0.7, z: 7, description: "Fone azul", lastLocation: "Quarto" },
+    { id: 5, name: "Relógio", x: -2.5, y: 0.9, z: -2.9, description: "Relógio prata", lastLocation: "Cozinha" },
+    { id: 5, name: "Livro", x: -8, y: 0.9, z: -8.5, description: "Livro de Romance", lastLocation: "Quarto" },
+    { id: 6, name: "Chapéu", x: 12, y: 0.4, z: 8, description: "Chapéu de sol", lastLocation: "Sala de estar" }
   ];
 
   const filteredItems = useMemo(() => {
@@ -29,7 +31,7 @@ export default function ItemLocationPage() {
   }, [search]);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100 pb-20">
 
       {/* HEADER */}
       <header className="w-full bg-blue-800 text-center py-4 shadow-md border-b">
@@ -95,22 +97,22 @@ export default function ItemLocationPage() {
       </div>
 
       {/* Bottom Navigation */}
-      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex justify-around text-white">
-        <Link to="/minhas-coisas">
+      <footer className="w-full fixed bottom-0 bg-blue-800 border-t py-4 flex text-white">
+        <Link to="/minhas-coisas" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <ShoppingBag className="hover:text-gray-900 transition-all duration-150" size={32} />
             <p>Minhas Coisas</p>
           </div>
         </Link>
 
-        <Link to="/localizacao">
+        <Link to="/localizacao" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <MapPin className="hover:text-gray-900 transition-all duration-150" size={32} />
-            <p>Encontrar meus Itens</p>
+            <p className="text-center">Encontrar meus itens</p>
           </div>
         </Link>
 
-        <Link to="/configuracao-ajuda">
+        <Link to="/configuracao-ajuda" className="flex-1">
           <div className="flex flex-col items-center justify-center gap-1">
             <User className="hover:text-gray-900 transition-all duration-150" size={32} />
             <p>Ajuda</p>
